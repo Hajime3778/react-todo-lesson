@@ -5,7 +5,7 @@ import TodoItem from './TodoItem';
 import { useHistory } from 'react-router-dom';
 
 function TodoList() {
-  const { todos } = useContext(TodosContext);
+  const { todos, setTodos } = useContext(TodosContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const history = useHistory();
@@ -22,7 +22,7 @@ function TodoList() {
     if (title === '' && description === '') return;
     const newTodos = todos.slice();
     newTodos.push({ title: title, description: description });
-    //setTodos(newTodos);
+    setTodos(newTodos);
   };
 
   return (

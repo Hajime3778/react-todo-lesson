@@ -30,16 +30,13 @@ function TodoEdit() {
     history.push('/');
   };
 
-  // const deleteClick = () => {
-  //   const newTodos = todos.slice();
-  //   newTodos.forEach((todo) => {
-  //     if (todo.title === title) {
-  //       todo.description = description;
-  //     }
-  //   });
-  //   setTodos(newTodos);
-  //   history.push('/');
-  // };
+  const deleteClick = () => {
+    const newTodos = todos.filter((todo) => {
+      return todo.title !== query.get('title');
+    });
+    setTodos(newTodos);
+    history.push('/');
+  };
 
   return (
     <div>
@@ -52,7 +49,7 @@ function TodoEdit() {
         onChange={changeDescription}
       />
       <button onClick={saveClick}>保存</button>
-      <button>削除</button>
+      <button onClick={deleteClick}>削除</button>
     </div>
   );
 }

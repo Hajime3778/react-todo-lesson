@@ -1,21 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { TodosContext } from './TodosContext';
 import './TodoList.css';
 import TodoItem from './TodoItem';
 import { useHistory } from 'react-router-dom';
 
-const todosSampleData = [
-  {
-    title: 'Reactのお勉強',
-    description: 'Reactのチュートリアルをやる',
-  },
-  {
-    title: 'Todoアプリを作ってみる',
-    description: 'かんたんなTodoアプリを作ってみよう！',
-  },
-];
-
 function TodoList() {
-  const [todos, setTodos] = useState(todosSampleData);
+  const { todos } = useContext(TodosContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const history = useHistory();
@@ -32,7 +22,7 @@ function TodoList() {
     if (title === '' && description === '') return;
     const newTodos = todos.slice();
     newTodos.push({ title: title, description: description });
-    setTodos(newTodos);
+    //setTodos(newTodos);
   };
 
   return (

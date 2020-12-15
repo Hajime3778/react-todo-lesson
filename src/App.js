@@ -11,7 +11,7 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path="/" component={TodoList} />
-            <Route path="/:title" component={TodoEdit} />
+            <Route path="/edit" component={TodoEdit} />
           </div>
         </Router>
       </div>

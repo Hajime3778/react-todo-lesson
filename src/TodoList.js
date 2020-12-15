@@ -5,24 +5,12 @@ import { useHistory } from 'react-router-dom';
 
 const todosSampleData = [
   {
-    title: '材料を買う',
-    description: 'お米、のり、鮭フレーク',
+    title: 'Reactのお勉強',
+    description: 'Reactのチュートリアルをやる',
   },
   {
-    title: 'お米を炊く',
-    description: 'お米を炊飯器で一時間炊く',
-  },
-  {
-    title: '握る',
-    description: '鮭フレークを入れて、三角に握る',
-  },
-  {
-    title: 'のりを巻く',
-    description: 'のりをくっつける',
-  },
-  {
-    title: 'たべる',
-    description: 'おいしい！',
+    title: 'Todoアプリを作ってみる',
+    description: 'かんたんなTodoアプリを作ってみよう！',
   },
 ];
 
@@ -49,32 +37,36 @@ function TodoList() {
 
   return (
     <div className="todo-list">
-      <form className="todo-form">
-        <div>
-          <input
-            className="todo-title-input"
-            id="title"
-            placeholder="title"
-            value={title}
-            onChange={changeTitle}
-          />
-          <textarea
-            className="todo-description-input"
-            id="description"
-            placeholder="description"
-            value={description}
-            onChange={changeDescription}
-          />
-        </div>
-        <div>
-          <a className="todo-add-button" type="submit" onClick={addClick}>
-            追加
-          </a>
-        </div>
-      </form>
+      <div>
+        <input
+          className="todo-title-input"
+          id="title"
+          placeholder="title"
+          value={title}
+          onChange={changeTitle}
+        />
+        <textarea
+          className="todo-description-input"
+          id="description"
+          placeholder="description"
+          value={description}
+          onChange={changeDescription}
+        />
+      </div>
+      <div>
+        <a className="todo-add-button" type="submit" onClick={addClick}>
+          追加
+        </a>
+      </div>
       {todos.map((todo) => {
         return (
-          <div onClick={() => history.push(`/${todo.title}`)} key={todo.title}>
+          <div
+            style={{ cursor: 'pointer' }}
+            onClick={() =>
+              history.push(`/edit?title=${todo.title}&description=${todo.description}`)
+            }
+            key={todo.title}
+          >
             <TodoItem title={todo.title} description={todo.description} key={todo.title} />
           </div>
         );

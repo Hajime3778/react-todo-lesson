@@ -50,15 +50,13 @@ function TodoList() {
       </div>
       {todoList.map((todo) => {
         return (
-          <div
-            style={{ cursor: 'pointer' }}
+          <TodoItem
+            todo={todo}
+            key={todo.title}
             onClick={() =>
               history.push(`/edit?title=${todo.title}&description=${todo.description}`)
             }
-            key={todo.title}
-          >
-            <TodoItem todo={todo} key={todo.title} />
-          </div>
+          />
         );
       })}
     </div>

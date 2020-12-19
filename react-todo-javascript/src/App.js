@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
 const dataList = [
-  { title: 'Reactのお勉強', description: 'Reactのチュートリアルをやる' },
-  { title: 'Todoアプリを作ってみる', description: 'Typescriptでやってみよう' },
+  { id: 0, title: 'Reactのお勉強', description: 'Reactのチュートリアルをやる' },
+  { id: 1, title: 'Todoアプリを作ってみる', description: 'かんたんなTodoアプリを作ってみよう！' },
 ];
 
 function App() {
@@ -18,20 +18,20 @@ function App() {
     setTodoList(newTodoList);
   };
 
-  const updateTodo = (todo) => {
+  const updateTodo = (selectedTodo) => {
     const newTodoList = todoList.slice();
-    newTodoList.forEach((targetTodo) => {
-      if (targetTodo.title === todo.title) {
-        targetTodo.title = todo.title;
-        targetTodo.description = todo.description;
+    newTodoList.forEach((todo) => {
+      if (todo.id === selectedTodo.id) {
+        todo.title = selectedTodo.title;
+        todo.description = selectedTodo.description;
       }
     });
     setTodoList(newTodoList);
   };
 
-  const deleteTodo = (todo) => {
-    const newTodoList = todoList.filter((targetTodo) => {
-      return targetTodo.title !== todo.title;
+  const deleteTodo = (selectedTodo) => {
+    const newTodoList = todoList.filter((todo) => {
+      return todo.id !== selectedTodo.id;
     });
     setTodoList(newTodoList);
   };
@@ -42,8 +42,10 @@ function App() {
         <div>
           <Route exact path="/" render={() => <TodoList todoList={todoList} addTodo={addTodo} />} />
           <Route
-            path="/edit"
-            render={() => <TodoEdit updateTodo={updateTodo} deleteTodo={deleteTodo} />}
+            path="/edit/:id"
+            render={() => (
+              <TodoEdit todoList={todoList} updateTodo={updateTodo} deleteTodo={deleteTodo} />
+            )}
           />
         </div>
       </Router>

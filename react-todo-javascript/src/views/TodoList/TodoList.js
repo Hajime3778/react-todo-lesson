@@ -17,7 +17,8 @@ function TodoList({ todoList, addTodo }) {
   };
 
   const addClick = () => {
-    addTodo({ title: title, description: description });
+    const newId = Math.max(...todoList.map((todo) => todo.id)) + 1;
+    addTodo({ id: newId, title: title, description: description });
   };
 
   return (
@@ -45,13 +46,7 @@ function TodoList({ todoList, addTodo }) {
       </div>
       {todoList.map((todo) => {
         return (
-          <TodoItem
-            todo={todo}
-            key={todo.title}
-            onClick={() =>
-              history.push(`/edit?title=${todo.title}&description=${todo.description}`)
-            }
-          />
+          <TodoItem todo={todo} key={todo.id} onClick={() => history.push(`/edit/${todo.id}`)} />
         );
       })}
     </div>

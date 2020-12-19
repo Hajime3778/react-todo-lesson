@@ -24,7 +24,10 @@ const TodoList: React.FC<Props> = ({ todoListProps, addTodo }) => {
   };
 
   const addClick = () => {
+    if (title === '' || description === '') return;
+    const newId = Math.max(...todoList.map((todo) => todo.id)) + 1;
     const todo: Todo = {
+      id: newId,
       title: title,
       description: description,
     };
@@ -57,11 +60,9 @@ const TodoList: React.FC<Props> = ({ todoListProps, addTodo }) => {
           return (
             <TodoItem
               todo={todo}
-              key={todo.title}
+              key={todo.id}
               onClick={() => {
-                history.push(
-                  `/edit?title=${todo.title}&description=${todo.description}`
-                );
+                history.push(`/edit/${todo.id}`);
               }}
             />
           );

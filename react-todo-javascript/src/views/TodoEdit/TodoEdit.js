@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './TodoEdit.css';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-function TodoEdit({ updateTodo, deleteTodo }) {
-  const query = new URLSearchParams(useLocation().search);
-  const [title, setTitle] = useState(query.get('title'));
-  const [description, setDescription] = useState(query.get('description'));
+function TodoEdit({ todoList, updateTodo, deleteTodo }) {
+  const id = parseInt(useParams().id);
+  const todo = todoList.filter((todo) => todo.id === id)[0];
+  const [title, setTitle] = useState(todo.title);
+  const [description, setDescription] = useState(todo.description);
   const history = useHistory();
 
   const titleChanged = (e) => {
@@ -17,12 +18,12 @@ function TodoEdit({ updateTodo, deleteTodo }) {
   };
 
   const saveClick = () => {
-    updateTodo({ title: title, description: description });
+    updateTodo({ id: id, title: title, description: description });
     history.push('/');
   };
 
   const deleteClick = () => {
-    deleteTodo({ title: title, description: description });
+    deleteTodo({ id: id, title: title, description: description });
     history.push('/');
   };
 

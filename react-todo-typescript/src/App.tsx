@@ -6,8 +6,16 @@ import TodoList from './views/TodoList/TodoList';
 import TodoEdit from './views/TodoEdit/TodoEdit';
 
 const dataList: Todo[] = [
-  { title: 'Reactのお勉強', description: 'Reactのチュートリアルをやる' },
-  { title: 'Todoアプリを作ってみる', description: 'Typescriptでやってみよう' },
+  {
+    id: 0,
+    title: 'Reactのお勉強',
+    description: 'Reactのチュートリアルをやる',
+  },
+  {
+    id: 1,
+    title: 'Todoアプリを作ってみる',
+    description: 'Typescriptでやってみよう',
+  },
 ];
 
 const App: React.FC = () => {
@@ -19,20 +27,20 @@ const App: React.FC = () => {
     setTodoList(newTodoList);
   };
 
-  const updateTodo = (todo: Todo) => {
+  const updateTodo = (selectedTodo: Todo) => {
     const newTodoList = todoList.slice();
-    newTodoList.forEach((targetTodo) => {
-      if (targetTodo.title === todo.title) {
-        targetTodo.title = todo.title;
-        targetTodo.description = todo.description;
+    newTodoList.forEach((todo) => {
+      if (todo.id === selectedTodo.id) {
+        todo.title = selectedTodo.title;
+        todo.description = selectedTodo.description;
       }
     });
     setTodoList(newTodoList);
   };
 
-  const deleteTodo = (todo: Todo) => {
-    const newTodoList = todoList.filter((targetTodo) => {
-      return targetTodo.title !== todo.title;
+  const deleteTodo = (selectedTodo: Todo) => {
+    const newTodoList = todoList.filter((todo) => {
+      return todo.title !== selectedTodo.title;
     });
     setTodoList(newTodoList);
   };
@@ -46,9 +54,13 @@ const App: React.FC = () => {
           render={() => <TodoList todoListProps={todoList} addTodo={addTodo} />}
         />
         <Route
-          path="/edit"
+          path="/edit/:id"
           render={() => (
-            <TodoEdit updateTodo={updateTodo} deleteTodo={deleteTodo} />
+            <TodoEdit
+              todoList={todoList}
+              updateTodo={updateTodo}
+              deleteTodo={deleteTodo}
+            />
           )}
         />
       </Router>

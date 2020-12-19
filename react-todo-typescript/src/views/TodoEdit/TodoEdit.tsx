@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Todo } from 'src/model/Todo';
 import './TodoEdit.css';
 
 interface Props {
+  todoList: Todo[];
   updateTodo: (todo: Todo) => void;
   deleteTodo: (todo: Todo) => void;
 }
 
-const TodoEdit: React.FC<Props> = ({ updateTodo, deleteTodo }) => {
+interface ParamTypes {
+  id: string;
+}
+
+const TodoEdit: React.FC<Props> = ({ todoList, updateTodo, deleteTodo }) => {
+  const id = parseInt(useParams<ParamTypes>().id);
+  const todo = todoList.filter((todo) => todo.id === id)[0];
+  const [title, setTitle] = useState(todo.title);
+  const [description, setDescription] = useState(todo.description);
   const history = useHistory();
-  const query = new URLSearchParams(useLocation().search);
-  const [title, setTitle] = useState(query.get('title') as string);
-  const [description, setDescription] = useState(
-    query.get('description') as string
-  );
 
   const titleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
@@ -26,6 +30,7 @@ const TodoEdit: React.FC<Props> = ({ updateTodo, deleteTodo }) => {
 
   const saveClicked = () => {
     const todo: Todo = {
+      id: id,
       title: title,
       description: description,
     };
@@ -35,6 +40,7 @@ const TodoEdit: React.FC<Props> = ({ updateTodo, deleteTodo }) => {
 
   const deleteClicked = () => {
     const todo: Todo = {
+      id: id,
       title: title,
       description: description,
     };

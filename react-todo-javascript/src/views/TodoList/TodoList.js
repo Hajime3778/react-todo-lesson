@@ -19,7 +19,7 @@ function TodoList() {
   };
 
   const addClick = () => {
-    if (title === '' && description === '') return;
+    if (title === '' || description === '') return;
     const newTodoList = todoList.slice();
 
     // 現在のID最大値+1を、新規IDとして設定する

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './TodoList.css';
 import { Todo } from '../../model/Todo';
 import TodoItem from 'src/components/TodoItem';
@@ -17,6 +18,7 @@ const dataList: Todo[] = [
 ];
 
 const TodoList: React.FC = () => {
+  const history = useHistory();
   const [todoList, setTodoList] = useState(dataList);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -30,7 +32,7 @@ const TodoList: React.FC = () => {
   };
 
   const addClick = () => {
-    if (title === '' && description === '') return;
+    if (title === '' || description === '') return;
     const newTodoList = todoList.slice();
 
     // 現在のID最大値+1を、新規IDとして設定する
@@ -70,7 +72,15 @@ const TodoList: React.FC = () => {
           </a>
         </div>
         {todoList.map((todo) => {
-          return <TodoItem todo={todo} key={todo.title} />;
+          return (
+            <TodoItem
+              key={todo.title}
+              todo={todo}
+              onClick={() => {
+                history.push(`/edit/${todo.id}`);
+              }}
+            />
+          );
         })}
       </div>
     </div>

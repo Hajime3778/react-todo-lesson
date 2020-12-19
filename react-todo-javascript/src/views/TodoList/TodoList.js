@@ -1,28 +1,23 @@
-import React, { useState, useContext } from 'react';
-import { TodoListContext } from '../../store/TodoListContext';
+import React, { useState } from 'react';
 import './TodoList.css';
 import TodoItem from '../../components/TodoItem';
 import { useHistory } from 'react-router-dom';
 
-function TodoList() {
-  const { todoList, setTodoList } = useContext(TodoListContext);
+function TodoList({ todoList, addTodo }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const history = useHistory();
 
-  const changeTitle = (e) => {
+  const titleChanged = (e) => {
     setTitle(e.target.value);
   };
 
-  const changeDescription = (e) => {
+  const descriptionChanged = (e) => {
     setDescription(e.target.value);
   };
 
   const addClick = () => {
-    if (title === '' && description === '') return;
-    const newTodoList = todoList.slice();
-    newTodoList.push({ title: title, description: description });
-    setTodoList(newTodoList);
+    addTodo({ title: title, description: description });
   };
 
   return (
@@ -33,14 +28,14 @@ function TodoList() {
           id="title"
           placeholder="title"
           value={title}
-          onChange={changeTitle}
+          onChange={titleChanged}
         />
         <textarea
           className="todo-description-input"
           id="description"
           placeholder="description"
           value={description}
-          onChange={changeDescription}
+          onChange={descriptionChanged}
         />
       </div>
       <div>

@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './TodoList.css';
-import { Todo } from '../../model/Todo';
+import { Todo } from 'src/model/Todo';
 import TodoItem from 'src/components/TodoItem';
 
-const dataList: Todo[] = [
-  { title: 'Reactのお勉強', description: 'Reactのチュートリアルをやる' },
-  { title: 'Todoアプリを作ってみる', description: 'Typescriptでやってみよう' },
-];
+interface Props {
+  todoListProps: Todo[];
+  addTodo: (todo: Todo) => void;
+}
 
-const TodoList: React.FC = () => {
-  const [todoList, setTodoList] = useState(dataList);
+const TodoList: React.FC<Props> = ({ todoListProps, addTodo }) => {
+  const todoList = todoListProps;
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const history = useHistory();
 
   const titleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
@@ -26,12 +28,7 @@ const TodoList: React.FC = () => {
       title: title,
       description: description,
     };
-    setTitle('');
-    setDescription('');
-
-    const newTodoList = todoList.slice();
-    newTodoList.push(todo);
-    setTodoList(newTodoList);
+    addTodo(todo);
   };
 
   return (
@@ -57,7 +54,17 @@ const TodoList: React.FC = () => {
           </a>
         </div>
         {todoList.map((todo) => {
-          return <TodoItem todo={todo} key={todo.title} />;
+          return (
+            <TodoItem
+              todo={todo}
+              key={todo.title}
+              onClick={() => {
+                history.push(
+                  `/edit?title=${todo.title}&description=${todo.description}`
+                );
+              }}
+            />
+          );
         })}
       </div>
     </div>

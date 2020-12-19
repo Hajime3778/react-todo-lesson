@@ -39,7 +39,7 @@ function TodoEdit() {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <h1>編集画面</h1>
       <input type="text" className="todo-title-input" value={title} onChange={changeTitle} />
       <textarea
@@ -50,7 +50,7 @@ function TodoEdit() {
       />
       <button onClick={saveClick}>保存</button>
       <button onClick={deleteClick}>削除</button>
-    </div>
+    </React.Fragment>
   );
 }
 

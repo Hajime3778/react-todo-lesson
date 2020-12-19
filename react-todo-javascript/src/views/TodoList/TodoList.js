@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { TodosContext } from '../../store/TodosContext';
+import { TodoListContext } from '../../store/TodoListContext';
 import './TodoList.css';
 import TodoItem from '../../components/TodoItem';
 import { useHistory } from 'react-router-dom';
 
 function TodoList() {
-  const { todos, setTodos } = useContext(TodosContext);
+  const { todoList, setTodoList } = useContext(TodoListContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const history = useHistory();
@@ -20,9 +20,9 @@ function TodoList() {
 
   const addClick = () => {
     if (title === '' && description === '') return;
-    const newTodos = todos.slice();
-    newTodos.push({ title: title, description: description });
-    setTodos(newTodos);
+    const newTodoList = todoList.slice();
+    newTodoList.push({ title: title, description: description });
+    setTodoList(newTodoList);
   };
 
   return (
@@ -48,7 +48,7 @@ function TodoList() {
           追加
         </a>
       </div>
-      {todos.map((todo) => {
+      {todoList.map((todo) => {
         return (
           <div
             style={{ cursor: 'pointer' }}
@@ -57,7 +57,7 @@ function TodoList() {
             }
             key={todo.title}
           >
-            <TodoItem title={todo.title} description={todo.description} key={todo.title} />
+            <TodoItem todo={todo} key={todo.title} />
           </div>
         );
       })}

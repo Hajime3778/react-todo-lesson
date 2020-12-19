@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { TodosContext } from '../../store/TodosContext';
+import { TodoListContext } from '../../store/TodoListContext';
 import './TodoEdit.css';
 import { useLocation, useHistory } from 'react-router-dom';
 
 function TodoEdit() {
   const query = new URLSearchParams(useLocation().search);
-  const { todos, setTodos } = useContext(TodosContext);
+  const { todoList, setTodoList } = useContext(TodoListContext);
   const [title, setTitle] = useState(query.get('title'));
   const [description, setDescription] = useState(query.get('description'));
   const history = useHistory();
@@ -19,22 +19,22 @@ function TodoEdit() {
   };
 
   const saveClick = () => {
-    const newTodos = todos.slice();
-    newTodos.forEach((todo) => {
+    const newTodoList = todoList.slice();
+    newTodoList.forEach((todo) => {
       if (todo.title === query.get('title')) {
         todo.title = title;
         todo.description = description;
       }
     });
-    setTodos(newTodos);
+    setTodoList(newTodoList);
     history.push('/');
   };
 
   const deleteClick = () => {
-    const newTodos = todos.filter((todo) => {
+    const newTodoList = todoList.filter((todo) => {
       return todo.title !== query.get('title');
     });
-    setTodos(newTodos);
+    setTodoList(newTodoList);
     history.push('/');
   };
 

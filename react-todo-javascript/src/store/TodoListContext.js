@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-export const TodosContext = React.createContext({});
+export const TodoListContext = React.createContext({});
 
-const todosSampleData = [
+const todoListSampleData = [
   {
     title: 'Reactのお勉強',
     description: 'Reactのチュートリアルをやる',
@@ -13,17 +13,17 @@ const todosSampleData = [
   },
 ];
 
-export const TodosProvider = ({ children }) => {
-  const [todos, setTodos] = useState(todosSampleData);
+export const TodoListProvider = ({ children }) => {
+  const [todoList, setTodoList] = useState(todoListSampleData);
 
   return (
-    <TodosContext.Provider
+    <TodoListContext.Provider
       value={{
-        todos,
-        setTodos,
+        todoList,
+        setTodoList,
       }}
     >
       {children}
-    </TodosContext.Provider>
+    </TodoListContext.Provider>
   );
 };

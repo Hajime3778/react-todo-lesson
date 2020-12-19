@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { TodosProvider } from './store/TodosContext';
+import { TodoListProvider } from './store/TodoListContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <TodosProvider>
+    <TodoListProvider>
       <App />
-    </TodosProvider>
+    </TodoListProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

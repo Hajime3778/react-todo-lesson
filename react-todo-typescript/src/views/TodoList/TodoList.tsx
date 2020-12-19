@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './TodoList.css';
-import { Todo } from './model/Todo';
+import { Todo } from '../../model/Todo';
 import TodoItem from 'src/components/TodoItem';
 
 const dataList: Todo[] = [

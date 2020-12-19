@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { TodosContext } from './TodosContext';
+import { TodosContext } from '../../store/TodosContext';
 import './TodoList.css';
-import TodoItem from './TodoItem';
+import TodoItem from '../../components/TodoItem';
 import { useHistory } from 'react-router-dom';
 
 function TodoList() {

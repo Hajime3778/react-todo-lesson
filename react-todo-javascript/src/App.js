@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import TodoList from './TodoList';
-import TodoEdit from './TodoEdit';
+import TodoList from './views/TodoList/TodoList';
+import TodoEdit from './views/TodoEdit/TodoEdit';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 

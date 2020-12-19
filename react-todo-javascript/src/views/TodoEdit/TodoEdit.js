@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TodosContext } from './TodosContext';
+import { TodosContext } from '../../store/TodosContext';
 import './TodoEdit.css';
 import { useLocation, useHistory } from 'react-router-dom';
 

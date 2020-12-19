@@ -4,8 +4,16 @@ import { Todo } from '../../model/Todo';
 import TodoItem from 'src/components/TodoItem';
 
 const dataList: Todo[] = [
-  { title: 'Reactのお勉強', description: 'Reactのチュートリアルをやる' },
-  { title: 'Todoアプリを作ってみる', description: 'Typescriptでやってみよう' },
+  {
+    id: 0,
+    title: 'Reactのお勉強',
+    description: 'Reactのチュートリアルをやる',
+  },
+  {
+    id: 1,
+    title: 'Todoアプリを作ってみる',
+    description: 'Typescriptでやってみよう',
+  },
 ];
 
 const TodoList: React.FC = () => {
@@ -22,15 +30,20 @@ const TodoList: React.FC = () => {
   };
 
   const addClick = () => {
+    if (title === '' && description === '') return;
+    const newTodoList = todoList.slice();
+
+    // 現在のID最大値+1を、新規IDとして設定する
+    const newId = Math.max(...newTodoList.map((todo) => todo.id)) + 1;
     const todo: Todo = {
+      id: newId,
       title: title,
       description: description,
     };
+    newTodoList.push(todo);
+
     setTitle('');
     setDescription('');
-
-    const newTodoList = todoList.slice();
-    newTodoList.push(todo);
     setTodoList(newTodoList);
   };
 

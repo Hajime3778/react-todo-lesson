@@ -1,13 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { TodoListContext } from '../../store/TodoListContext';
 import './TodoEdit.css';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 function TodoEdit() {
-  const query = new URLSearchParams(useLocation().search);
   const { todoList, setTodoList } = useContext(TodoListContext);
-  const [title, setTitle] = useState(query.get('title'));
-  const [description, setDescription] = useState(query.get('description'));
+  const id = parseInt(useParams().id);
+  const todo = todoList.filter((todo) => todo.id === id)[0];
+
+  const [title, setTitle] = useState(todo.title);
+  const [description, setDescription] = useState(todo.description);
   const history = useHistory();
 
   const titleChanged = (e) => {
@@ -21,7 +23,7 @@ function TodoEdit() {
   const saveClick = () => {
     const newTodoList = todoList.slice();
     newTodoList.forEach((todo) => {
-      if (todo.title === query.get('title')) {
+      if (todo.id === id) {
         todo.title = title;
         todo.description = description;
       }
@@ -32,7 +34,7 @@ function TodoEdit() {
 
   const deleteClick = () => {
     const newTodoList = todoList.filter((todo) => {
-      return todo.title !== query.get('title');
+      return todo.id !== id;
     });
     setTodoList(newTodoList);
     history.push('/');

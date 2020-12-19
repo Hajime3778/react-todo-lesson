@@ -21,7 +21,12 @@ function TodoList() {
   const addClick = () => {
     if (title === '' && description === '') return;
     const newTodoList = todoList.slice();
-    newTodoList.push({ title: title, description: description });
+
+    // 現在のID最大値+1を、新規IDとして設定する
+    const newId = Math.max(...newTodoList.map((todo) => todo.id)) + 1;
+    newTodoList.push({ id: newId, title: title, description: description });
+    setTitle('');
+    setDescription('');
     setTodoList(newTodoList);
   };
 
@@ -50,13 +55,7 @@ function TodoList() {
       </div>
       {todoList.map((todo) => {
         return (
-          <TodoItem
-            todo={todo}
-            key={todo.title}
-            onClick={() =>
-              history.push(`/edit?title=${todo.title}&description=${todo.description}`)
-            }
-          />
+          <TodoItem todo={todo} key={todo.id} onClick={() => history.push(`/edit/${todo.id}`)} />
         );
       })}
     </div>

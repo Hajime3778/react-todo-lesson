@@ -10,11 +10,11 @@ function TodoList() {
   const [description, setDescription] = useState('');
   const history = useHistory();
 
-  const changeTitle = (e) => {
+  const titleChanged = (e) => {
     setTitle(e.target.value);
   };
 
-  const changeDescription = (e) => {
+  const descriptionChanged = (e) => {
     setDescription(e.target.value);
   };
 
@@ -33,14 +33,14 @@ function TodoList() {
           id="title"
           placeholder="title"
           value={title}
-          onChange={changeTitle}
+          onChange={titleChanged}
         />
         <textarea
           className="todo-description-input"
           id="description"
           placeholder="description"
           value={description}
-          onChange={changeDescription}
+          onChange={descriptionChanged}
         />
       </div>
       <div>

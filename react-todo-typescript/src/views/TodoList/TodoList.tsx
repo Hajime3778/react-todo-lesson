@@ -1,25 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './TodoList.css';
-import { Todo } from '../../model/Todo';
+import { TodoListContext } from 'src/store/TodoListContext';
+import { Todo } from 'src/model/Todo';
 import TodoItem from 'src/components/TodoItem';
-
-const dataList: Todo[] = [
-  {
-    id: 0,
-    title: 'Reactのお勉強',
-    description: 'Reactのチュートリアルをやる',
-  },
-  {
-    id: 1,
-    title: 'Todoアプリを作ってみる',
-    description: 'Typescriptでやってみよう',
-  },
-];
 
 const TodoList: React.FC = () => {
   const history = useHistory();
-  const [todoList, setTodoList] = useState(dataList);
+  const { todoList, setTodoList } = useContext(TodoListContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 

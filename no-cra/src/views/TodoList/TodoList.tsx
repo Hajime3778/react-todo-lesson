@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import { Todo } from '../../model/Todo';
-import { TodoItem } from '../../components/TodoItem';
+import { Todo } from 'src/model/Todo';
+import { TodoItem } from 'src/components/TodoItem';
 import styles from './TodoList.css';
 
 export const TodoList: React.FC = () => {

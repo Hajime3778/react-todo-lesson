@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Axios, { AxiosResponse } from 'axios';
+import { useHistory } from 'react-router';
 import { TodoListContext } from 'src/context/TodoListContext';
 import { Todo } from 'src/model/Todo';
 import { TodoItem } from 'src/components/TodoItem';
@@ -11,6 +12,8 @@ export const TodoList: React.FC = () => {
     title: '',
     description: '',
   });
+
+  const history = useHistory();
 
   useEffect(() => {
     (async () => {
@@ -60,7 +63,15 @@ export const TodoList: React.FC = () => {
         </button>
       </div>
       {todoList.map((todo) => {
-        return <TodoItem key={todo.id} todo={todo} />;
+        return (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onClick={() => {
+              return history.push(`/edit/${todo.id}`);
+            }}
+          />
+        );
       })}
     </>
   );
